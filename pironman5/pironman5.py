@@ -37,6 +37,7 @@ AUTO_DEFAULT_CONFIG = {
     'rgb_brightness': 100,
     'rgb_style': 'rainbow',
     'rgb_speed': 0,
+    'oled_enable': True,
     'gpio_fan_pin': 6,
 }
 DASHBOARD_SETTINGS = {
