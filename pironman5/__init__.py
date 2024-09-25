@@ -34,6 +34,7 @@ def main():
     parser.add_argument("-gm", "--gpio-fan-mode", nargs='?', default='', help=f"GPIO fan mode, {', '.join([f'{i}: {mode}' for i, mode in enumerate(GPIO_FAN_MODES)])}")
     parser.add_argument("-gp", "--gpio-fan-pin", nargs='?', default='', help="GPIO fan pin")
     parser.add_argument("-oe", "--oled-enable", nargs='?', default='', help="OLED enable True/False")
+    parser.add_argument("-ob", "--oled-brightness", nargs='?', default='', help="OLED brightness 0-100")
     parser.add_argument("--background", nargs='?', default='', help="Run in background")
 
     args = parser.parse_args()
@@ -187,6 +188,19 @@ def main():
             else:
                 print(f"Invalid value for OLED enable, it should be True or False")
                 quit()
+    if args.oled_brightness != '':
+        if args.oled_brightness == None:
+            print(f"OLED brightness: {current_config['auto']['oled_brightness']}")
+        else:
+            try:
+                args.oled_brightness = int(args.oled_brightness)
+            except ValueError:
+                print(f"Invalid value for OLED brightness, it should be an integer between 0 and 100")
+                quit()
+            if args.oled_brightness < 0 or args.oled_brightness > 100:
+                print(f"Invalid value for OLED brightness, it should be between 0 and 100")
+                quit()
+            new_auto['oled_brightness'] = args.oled_brightness
     if args.background != '':
         print("This is a placeholder for pironman5 binary help, you should run pironman5 instead")
         quit()
